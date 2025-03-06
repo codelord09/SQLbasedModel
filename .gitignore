@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.env
+venv/
+
+# ANTLR
+AdvancedSQL.interp
+AdvancedSQL.tokens
+AdvancedSQLLexer.interp
+AdvancedSQLLexer.tokens
+.antlr/
+
+# Generated Files
+AdvancedSQLLexer.py
+AdvancedSQLParser.py
+AdvancedSQLListener.py
+AdvancedSQLVisitor.py
+
+# Local Files
+sql_analysis.txt
+/CaseInsensitiveStringStream.py  # Only if this is generated
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
