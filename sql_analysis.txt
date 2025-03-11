@@ -1,0 +1,91 @@
+=== SQL QUERY ===
+SELECT name, email FROM users LEFT JOIN orders ON users.id = orders.user_id WHERE age > 18 ORDER BY name ASC LIMIT 10;
+
+=== PARSE TREE ===
+RULE: sqlStatement
+├── RULE: selectStatement
+│   ├── TOKEN: SELECT
+│   ├── RULE: columnList
+│   │   ├── RULE: qualifiedColumn
+│   │   │   └── TOKEN: name
+│   │   ├── TOKEN: ,
+│   │   └── RULE: qualifiedColumn
+│   │       └── TOKEN: email
+│   ├── TOKEN: FROM
+│   ├── RULE: tableSource
+│   │   ├── RULE: tableName
+│   │   │   └── TOKEN: users
+│   │   └── RULE: joinClause
+│   │       ├── RULE: joinType
+│   │       │   └── TOKEN: LEFT
+│   │       ├── TOKEN: JOIN
+│   │       ├── RULE: tableName
+│   │       │   └── TOKEN: orders
+│   │       ├── TOKEN: ON
+│   │       └── RULE: condition
+│   │           └── RULE: expression
+│   │               └── RULE: predicate
+│   │                   ├── RULE: qualifiedColumn
+│   │                   │   ├── TOKEN: users
+│   │                   │   ├── TOKEN: .
+│   │                   │   └── TOKEN: id
+│   │                   ├── RULE: operator
+│   │                   │   └── TOKEN: =
+│   │                   └── RULE: value
+│   │                       └── RULE: qualifiedColumn
+│   │                           ├── TOKEN: orders
+│   │                           ├── TOKEN: .
+│   │                           └── TOKEN: user_id
+│   ├── RULE: whereClause
+│   │   ├── TOKEN: WHERE
+│   │   └── RULE: condition
+│   │       └── RULE: expression
+│   │           └── RULE: predicate
+│   │               ├── RULE: qualifiedColumn
+│   │               │   └── TOKEN: age
+│   │               ├── RULE: operator
+│   │               │   └── TOKEN: >
+│   │               └── RULE: value
+│   │                   └── RULE: literalValue
+│   │                       └── TOKEN: 18
+│   ├── RULE: orderByClause
+│   │   ├── TOKEN: ORDER
+│   │   ├── TOKEN: BY
+│   │   └── RULE: orderByItem
+│   │       ├── RULE: qualifiedColumn
+│   │       │   └── TOKEN: name
+│   │       └── TOKEN: ASC
+│   └── RULE: limitClause
+│       ├── TOKEN: LIMIT
+│       └── TOKEN: 10
+├── TOKEN: ;
+└── TOKEN: <EOF>
+
+=== SEMANTIC ANALYSIS ===
+
+QUERY STRUCTURE:
+{
+  "query_type": "SELECT",
+  "tables": [
+    "users",
+    "orders"
+  ],
+  "columns": [
+    "name",
+    "email",
+    "id",
+    "user_id"
+  ],
+  "joins": [
+    "LEFT JOIN orders ON users.id = orders.user_id"
+  ],
+  "filters": [
+    "age > 18"
+  ]
+}
+
+DATA COMPONENTS:
+{}
+
+OPERATIONS INFO:
+{}
